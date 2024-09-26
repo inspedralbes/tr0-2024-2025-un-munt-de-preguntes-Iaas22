@@ -9,7 +9,7 @@
           "Mercedes-Benz",
           "Audi"
         ],
-        "imatge": "../img/img1.jpeg"
+        "imatge": "../web/img/img1.jpeg"
       },
      
       {
@@ -20,7 +20,7 @@
           "70 km/h",
           "90 km/h"
         ],
-        "imatge": "../img/img12.jpeg"
+        "imatge": "../web/img/img12.jpeg"
 
       },
       {
@@ -31,7 +31,7 @@
           "Passar amb compte",
           "Continuar si no hi ha trànsit"
         ],
-        "imatge": "../img/img4.jpeg"
+        "imatge": "../web/img/img4.jpeg"
 
 
       },
@@ -43,7 +43,7 @@
           "Reduir la velocitat",
           "Augmentar la velocitat"
         ],
-        "imatge": "../img/img3.jpeg"
+        "imatge": "../web/img/img3.jpeg"
 
       },
       {
@@ -54,7 +54,7 @@
           "Els vehicles que entren",
           "Els vehicles que surten"
         ],
-        "imatge": "../img/img6.jpeg"
+        "imatge": "../web/img/img6.jpeg"
 
       },
       {
@@ -65,7 +65,7 @@
           "Es pot superar amb precaució",
           "És opcional superar-la"
         ],
-        "imatge": "../img/img8.jpeg"
+        "imatge": "../web/img/img8.jpeg"
 
       },
       {
@@ -76,7 +76,7 @@
           "Senyal de perill",
           "Senyal d'accident"
         ],
-        "imatge": "../img/img7.jpeg"
+        "imatge": "../web/img/img7.jpeg"
 
       },
       {
@@ -87,7 +87,7 @@
           "Llum de carretera",
           "Llum d'alerta"
         ],
-        "imatge": "../img/img16.jpeg"
+        "imatge": "../web/img/img16.jpeg"
 
         
       },
@@ -99,7 +99,7 @@
           "Girar a l'esquerra amb precaució",
           "Prohibició de girar a l'esquerra"
         ],
-        "imatge": "../img/img11.jpeg"
+        "imatge": "../web/img/img11.jpeg"
 
       },
       {
@@ -110,7 +110,7 @@
           "Harley-Davidson",
           "Kawasaki"
         ],
-        "imatge": "../img/img9.jpeg"
+        "imatge": "../web/img/img9.jpeg"
 
       },
       {
@@ -132,7 +132,7 @@
           "100 km/h",
           "90 km/h"
         ],
-        "imatge": "../img/img15.jpeg"
+        "imatge": "../web/img/img15.jpeg"
 
       },
       {
@@ -143,7 +143,7 @@
           "Aturar-se a la carretera",
           "Continuar com si res"
         ],
-        "imatge": "../img/img13.jpeg"
+        "imatge": "../web/img//img13.jpeg"
 
       },
       {
@@ -154,7 +154,7 @@
           "Augmentar la velocitat",
           "Reduir el soroll"
         ],
-        "imatge": "../img/img14.jpeg"
+        "imatge": "../web/img/img14.jpeg"
 
       }
     ]
