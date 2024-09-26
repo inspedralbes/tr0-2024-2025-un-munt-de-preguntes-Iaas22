@@ -1,0 +1,93 @@
+/* https://coolors.co/palette/064789-427aa1-ebf2fa*/
+
+
+:root {
+    --color1: #ebf2fa;
+    --color2: #427aa1;
+    --color3: #064789;
+    --color-text: #333;
+    --color-button-hover: #064789;
+    --button-border-radius: 8px;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: var(--color1);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: var(--color-text);
+  }
+  
+  h1 {
+    background-color: var(--color2);
+    margin: 0;
+    padding: 20px;
+    font-size: 2em;
+    color: white;
+  }
+  
+  #contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .question-container {
+    background-color: white;
+    width: 90%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: var(--color3);
+  }
+  
+  .img-quizz {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+  }
+  
+  button {
+    background-color: var(--color2);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px 0; /* Cambia el margen para que haya separación entre botones */
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: var(--button-border-radius);
+    transition: background-color 0.3s;
+    display: block; /* Hace que el botón ocupe toda la línea */
+    width: 100%; /* El botón se ajusta al 100% del contenedor */
+  }
+  
+  
+  button:hover {
+    background-color: var(--color-button-hover);
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  @media (min-width: 768px) {
+    button {
+      padding: 15px 25px;
+      font-size: 1.1em;
+    }
+  }

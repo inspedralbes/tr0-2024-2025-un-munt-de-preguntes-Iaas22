@@ -1,0 +1,162 @@
+{
+  
+    "preguntes": [
+      {
+        "id": 1,
+        "pregunta": "Quina marca de cotxes utilitza el lema 'Ultimate Driving Machine'?",
+        "respostes": [
+          "BMW *",
+          "Mercedes-Benz",
+          "Audi"
+        ],
+        "imatge": "../img/img1.jpeg"
+      },
+     
+      {
+        "id": 2,
+        "pregunta": "Quina és la velocitat màxima permesa en una zona urbana?",
+        "respostes": [
+          "50 km/h *",
+          "70 km/h",
+          "90 km/h"
+        ],
+        "imatge": "../img/img12.jpeg"
+
+      },
+      {
+        "id": 3,
+        "pregunta": "Què s'ha de fer quan un semàfor es posa en vermell?",
+        "respostes": [
+          "Aturar-se *",
+          "Passar amb compte",
+          "Continuar si no hi ha trànsit"
+        ],
+        "imatge": "../img/img4.jpeg"
+
+
+      },
+      {
+        "id": 4,
+        "pregunta": "Quina és la funció dels frens de mà?",
+        "respostes": [
+          "Mantenir el cotxe estacionat *",
+          "Reduir la velocitat",
+          "Augmentar la velocitat"
+        ],
+        "imatge": "../img/img3.jpeg"
+
+      },
+      {
+        "id": 5,
+        "pregunta": "Quina és la prioritat en una rotonda?",
+        "respostes": [
+          "Els vehicles dins de la rotonda *",
+          "Els vehicles que entren",
+          "Els vehicles que surten"
+        ],
+        "imatge": "../img/img6.jpeg"
+
+      },
+      {
+        "id": 6,
+        "pregunta": "Què significa una línia contínua en la carretera?",
+        "respostes": [
+          "No es pot superar *",
+          "Es pot superar amb precaució",
+          "És opcional superar-la"
+        ],
+        "imatge": "../img/img8.jpeg"
+
+      },
+      {
+        "id": 7,
+        "pregunta": "Quina senyal indica la presència de treballs en la carretera?",
+        "respostes": [
+          "Senyal de treballs *",
+          "Senyal de perill",
+          "Senyal d'accident"
+        ],
+        "imatge": "../img/img7.jpeg"
+
+      },
+      {
+        "id": 8,
+        "pregunta": "Quin tipus de llum s'ha de fer servir en condicions de boira?",
+        "respostes": [
+          "Llum antiboira *",
+          "Llum de carretera",
+          "Llum d'alerta"
+        ],
+        "imatge": "../img/img16.jpeg"
+
+        
+      },
+      {
+        "id": 9,
+        "pregunta": "Què indica una senyal amb una fletxa cap a l'esquerra?",
+        "respostes": [
+          "Gir a l'esquerra obligatori *",
+          "Girar a l'esquerra amb precaució",
+          "Prohibició de girar a l'esquerra"
+        ],
+        "imatge": "../img/img11.jpeg"
+
+      },
+      {
+        "id": 10,
+        "pregunta": "Quina marca de motos utilitza el lema 'The Ultimate Riding Machine'?",
+        "respostes": [
+          "BMW Motorrad *",
+          "Harley-Davidson",
+          "Kawasaki"
+        ],
+        "imatge": "../img/img9.jpeg"
+
+      },
+      {
+        "id": 11,
+        "pregunta": "Quina senyal indica un pas de vianants?",
+        "respostes": [
+          "Senyal de pas de vianants *",
+          "Senyal d'atenció",
+          "Senyal de perill"
+        ],
+        "imatge": "../img/img10.jpeg"
+
+      },
+      {
+        "id": 12,
+        "pregunta": "Quin és el límit de velocitat en una autopista?",
+        "respostes": [
+          "120 km/h *",
+          "100 km/h",
+          "90 km/h"
+        ],
+        "imatge": "../img/img15.jpeg"
+
+      },
+      {
+        "id": 13,
+        "pregunta": "Què s'ha de fer si un vehicle d'emergència s'aproxima amb llums i sirenes?",
+        "respostes": [
+          "Cedir el pas *",
+          "Aturar-se a la carretera",
+          "Continuar com si res"
+        ],
+        "imatge": "../img/img13.jpeg"
+
+      },
+      {
+        "id": 14,
+        "pregunta": "Quina és la funció del retrovisor?",
+        "respostes": [
+          "Veure el trànsit darrere *",
+          "Augmentar la velocitat",
+          "Reduir el soroll"
+        ],
+        "imatge": "../img/img14.jpeg"
+
+      }
+    ]
+  }
+  
