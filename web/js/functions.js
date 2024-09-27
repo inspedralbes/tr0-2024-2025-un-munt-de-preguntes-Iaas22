@@ -26,6 +26,7 @@ fetch('../back/getPreguntas.php')
     }));
     
     mostrarPregunta(preg);
+    mostrarEstatPartida();  // Mostrar l'estat inicial de la partida
   })
   .catch(error => console.error('Fetch error:', error));
 
@@ -55,14 +56,18 @@ function verificarResposta(indexP, indexR) {
   // Verificar si la resposta és correcta
   let respostaCorrecta = preg[indexP].respostes[indexR].includes('*');
   
-  // Actualitzar l'estat de la partida
-  estatDeLaPartida.preguntes[indexP].feta = true;
+  // Si la pregunta no havia estat contestada abans
+  if (!estatDeLaPartida.preguntes[indexP].feta) {
+    // Actualitzar l'estat de la partida
+    estatDeLaPartida.preguntes[indexP].feta = true;
+    
+    // Augmentar el comptador de preguntes respostes
+    estatDeLaPartida.contadorPreguntes++;
+  }
   estatDeLaPartida.preguntes[indexP].resposta = respostaCorrecta ? 'correcta' : 'incorrecta';
+
   
-  // Augmentar el comptador de preguntes respostes
-  estatDeLaPartida.contadorPreguntes++;
-  
-  // Mostrar estat actualitzat de la partida
+  // Mostrar estat actualitzat de la partida (conteo y respuestas)
   mostrarEstatPartida();
   
   // Comprovar si s'han respost totes les preguntes
@@ -75,7 +80,9 @@ function verificarResposta(indexP, indexR) {
 function mostrarEstatPartida() {
   let estatHtml = `<h3>Estat de la partida</h3>`;
   
-  
+  // Mostrar quantes preguntes s'han respost de 10 en el format "X/10"
+  estatHtml += `<p>Has respost ${estatDeLaPartida.contadorPreguntes} de ${preg.length} preguntes.</p>`;
+
   // Mostrem les respostes fetes fins ara
   estatDeLaPartida.preguntes.forEach((pregunta, index) => {
     estatHtml += `<p>Pregunta ${index + 1}: ${pregunta.feta ? 'Resposta ' + pregunta.resposta : 'Sense respondre'}</p>`;
