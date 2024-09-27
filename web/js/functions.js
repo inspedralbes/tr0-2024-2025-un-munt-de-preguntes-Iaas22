@@ -87,7 +87,7 @@ function mostrarEstatPartida() {
   let estatHtml = `<h3>Estat de la partida</h3>`;
   
   // Mostrar quantes preguntes s'han respost de 10 en el format "X/10"
-  estatHtml += `<p>Has respost ${estatDeLaPartida.contadorPreguntes} de ${preg.length} preguntes.</p>`;
+  estatHtml += `<p>Pregunta ${estatDeLaPartida.contadorPreguntes} / ${preg.length} </p>`;
 
   // Mostrem les respostes fetes fins ara
   estatDeLaPartida.preguntes.forEach((pregunta, index) => {
