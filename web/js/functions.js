@@ -87,11 +87,11 @@ function mostrarEstatPartida() {
   let estatHtml = `<h3>Estat de la partida</h3>`;
   
   // Mostrar quantes preguntes s'han respost de 10 en el format "X/10"
-  estatHtml += `<p>Pregunta ${estatDeLaPartida.contadorPreguntes} / ${preg.length} </p>`;
+  estatHtml += `<p>Has respost ${estatDeLaPartida.contadorPreguntes} de ${preg.length} preguntes.</p>`;
 
-  // Mostrem les respostes fetes fins ara
+  // Mostrem si les preguntes han estat respostes, sense indicar si són correctes o no
   estatDeLaPartida.preguntes.forEach((pregunta, index) => {
-    estatHtml += `<p>Pregunta ${index + 1}: ${pregunta.feta ? 'Resposta ' + pregunta.resposta : 'Sense respondre'}</p>`;
+    estatHtml += `<p>Pregunta ${index + 1}: ${pregunta.feta ? 'Resposta' : 'Sense respondre'}</p>`;
   });
 
   let estatContenedor = document.getElementById('estatPartida');
