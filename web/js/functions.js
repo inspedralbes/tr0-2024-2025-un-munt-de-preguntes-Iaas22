@@ -1,5 +1,6 @@
 let preg = [];
 let puntuacio = 0;
+let preguntaActual = 0;  // Indica el número de la pregunta actual
 
 // Objecte per guardar l'estat de la partida
 let estatDeLaPartida = {
@@ -25,27 +26,30 @@ fetch('../back/getPreguntas.php')
       resposta: null
     }));
     
-    mostrarPregunta(preg);
+    mostrarPregunta();  // Mostrar la primera pregunta
     mostrarEstatPartida();  // Mostrar l'estat inicial de la partida
   })
   .catch(error => console.error('Fetch error:', error));
 
-// Funció per mostrar les preguntes
-function mostrarPregunta(info) {
+// Funció per mostrar la pregunta actual
+function mostrarPregunta() {
   let htmlString = '';
 
-  for (let indexP = 0; indexP < preg.length; indexP++) {
+  if (preguntaActual < preg.length) {
+    let pregunta = preg[preguntaActual];
+
     htmlString += `<div class="question-container"> `;
-    htmlString += `<h3> ${preg[indexP].pregunta}</h3>`;
+    htmlString += `<h3>${pregunta.pregunta}</h3>`;
     
-    htmlString += `<img src="${preg[indexP].imatge}" class="img-quizz" /> <br>`;
+    htmlString += `<img src="${pregunta.imatge}" class="img-quizz" /> <br>`;
     
-    for (let indexR = 0; indexR < preg[indexP].respostes.length; indexR++) {
-      htmlString += `<button onclick="verificarResposta(${indexP}, ${indexR})">${preg[indexP].respostes[indexR].resposta} </button>`;
+    for (let indexR = 0; indexR < pregunta.respostes.length; indexR++) {
+      htmlString += `<button onclick="verificarResposta(${preguntaActual}, ${indexR})">${pregunta.respostes[indexR].resposta}</button>`;
     }
-    
 
     htmlString += `</div>`;
+  } else {
+    htmlString = `<h3>Has respost totes les preguntes!</h3>`;
   }
 
   let contenedor = document.getElementById('contenedor');
@@ -56,26 +60,30 @@ function mostrarPregunta(info) {
 function verificarResposta(indexP, indexR) {
   // Verificar si la resposta és correcta
   let respostaCorrecta = preg[indexP].respostes[indexR].correcta;
-  
+
   // Si la pregunta no havia estat contestada abans
   if (!estatDeLaPartida.preguntes[indexP].feta) {
     // Actualitzar l'estat de la partida
     estatDeLaPartida.preguntes[indexP].feta = true;
-    
+
     // Augmentar el comptador de preguntes respostes
     estatDeLaPartida.contadorPreguntes++;
-    
+
     // Augmentar la puntuació si la resposta és correcta
     if (respostaCorrecta) {
       puntuacio++;
     }
+
+    estatDeLaPartida.preguntes[indexP].resposta = respostaCorrecta ? 'correcta' : 'incorrecta';
   }
 
-  estatDeLaPartida.preguntes[indexP].resposta = respostaCorrecta ? 'correcta' : 'incorrecta';
-
-  // Mostrar estat actualitzat de la partida (conteo y respuestas)
+  // Mostrar estat actualitzat de la partida
   mostrarEstatPartida();
-  
+
+  // Passar a la següent pregunta
+  preguntaActual++;
+  mostrarPregunta();  // Mostrar la següent pregunta
+
   // Comprovar si s'han respost totes les preguntes
   if (estatDeLaPartida.contadorPreguntes === preg.length) {
     document.getElementById('enviarResultats').style.display = 'block';
@@ -85,14 +93,9 @@ function verificarResposta(indexP, indexR) {
 // Funció per mostrar l'estat de la partida
 function mostrarEstatPartida() {
   let estatHtml = `<h3>Estat de la partida</h3>`;
-  
-  // Mostrar quantes preguntes s'han respost de 10 en el format "X/10"
-  estatHtml += `<p>Has respost ${estatDeLaPartida.contadorPreguntes} de ${preg.length} preguntes.</p>`;
 
-  // Mostrem si les preguntes han estat respostes, sense indicar si són correctes o no
-  estatDeLaPartida.preguntes.forEach((pregunta, index) => {
-    estatHtml += `<p>Pregunta ${index + 1}: ${pregunta.feta ? 'Resposta' : 'Sense respondre'}</p>`;
-  });
+  // Mostrar quantes preguntes s'han respost en el format "X/10"
+  estatHtml += `<p>Has respost ${estatDeLaPartida.contadorPreguntes} de ${preg.length} preguntes.</p>`;
 
   let estatContenedor = document.getElementById('estatPartida');
   estatContenedor.innerHTML = estatHtml;
