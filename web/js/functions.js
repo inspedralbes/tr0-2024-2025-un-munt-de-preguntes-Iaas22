@@ -103,6 +103,7 @@ function mostrarEstatPartida() {
 
 // Funció per enviar els resultats (quan es mostri el botó)
 function enviarResultats() {
-  alert(`Els resultats han estat enviats. Has encertat ${puntuacio} de ${preg.length} preguntes.`);
+  alert(`Els resultats han estat enviats.`);
+  //Has encertat ${puntuacio} de ${preg.length} preguntes.
   // Aquí pots fer un fetch per enviar els resultats al servidor si cal
 }
