@@ -41,8 +41,9 @@ function mostrarPregunta(info) {
     htmlString += `<img src="${preg[indexP].imatge}" class="img-quizz" /> <br>`;
     
     for (let indexR = 0; indexR < preg[indexP].respostes.length; indexR++) {
-      htmlString += `<button onclick="verificarResposta(${indexP}, ${indexR})">${preg[indexP].respostes[indexR]} </button>`;
+      htmlString += `<button onclick="verificarResposta(${indexP}, ${indexR})">${preg[indexP].respostes[indexR].resposta} </button>`;
     }
+    
 
     htmlString += `</div>`;
   }
