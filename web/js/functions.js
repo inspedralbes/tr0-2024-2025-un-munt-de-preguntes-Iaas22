@@ -55,7 +55,7 @@ function mostrarPregunta(info) {
 // Funció per verificar la resposta i actualitzar l'estat de la partida
 function verificarResposta(indexP, indexR) {
   // Verificar si la resposta és correcta
-  let respostaCorrecta = preg[indexP].respostes[indexR].includes('*');
+  let respostaCorrecta = preg[indexP].respostes[indexR].correcta;
   
   // Si la pregunta no havia estat contestada abans
   if (!estatDeLaPartida.preguntes[indexP].feta) {
@@ -64,10 +64,15 @@ function verificarResposta(indexP, indexR) {
     
     // Augmentar el comptador de preguntes respostes
     estatDeLaPartida.contadorPreguntes++;
+    
+    // Augmentar la puntuació si la resposta és correcta
+    if (respostaCorrecta) {
+      puntuacio++;
+    }
   }
+
   estatDeLaPartida.preguntes[indexP].resposta = respostaCorrecta ? 'correcta' : 'incorrecta';
 
-  
   // Mostrar estat actualitzat de la partida (conteo y respuestas)
   mostrarEstatPartida();
   
@@ -95,6 +100,6 @@ function mostrarEstatPartida() {
 
 // Funció per enviar els resultats (quan es mostri el botó)
 function enviarResultats() {
-  alert('Els resultats han estat enviats.');
+  alert(`Els resultats han estat enviats. Has encertat ${puntuacio} de ${preg.length} preguntes.`);
   // Aquí pots fer un fetch per enviar els resultats al servidor si cal
 }
