@@ -1,58 +1,44 @@
 <?php
-session_start(); // Asegúrate de que la sesión esté iniciada
-
 header('Content-Type: application/json');
 
-// Cargar el archivo JSON con las preguntas
+// Cargar el archivo JSON
 $info = file_get_contents("./data.json");
 $datos = json_decode($info, true);
 
-// Recuperar las preguntas guardadas en la sesión
-$preguntes = isset($_SESSION['preguntes']) ? $_SESSION['preguntes'] : [];
+// Recuperar las respuestas enviadas
+$input = json_decode(file_get_contents("php://input"), true);
 
-// Inicializar variables para calcular resultados
-$resultats = [];
-$puntuacio = 0;
+// Inicializar contadores
+$correctas = 0;
+$incorrectas = 0;
 
-// Recoger las respuestas enviadas desde el front-end
-$totalPreguntes = isset($_POST['totalPreguntes']) ? (int)$_POST['totalPreguntes'] : 0;
+// Comprobar las respuestas
+foreach ($input['respostes'] as $respuesta) {
+    $preguntaId = $respuesta['idPregunta'];
+    $respuestaSeleccionada = $respuesta['respostaSeleccionada'];
 
-for ($i = 0; $i < $totalPreguntes; $i++) {
-    // Obtener la respuesta seleccionada por el usuario
-    $respostaSeleccionada = isset($_POST["resposta_$i"]) ? (int)$_POST["resposta_$i"] : null;
-
-    // Obtener la pregunta actual
-    if (isset($preguntes[$i])) {
-        $preguntaActual = $preguntes[$i];
-        $resultatPregunta = [
-            'pregunta' => $preguntaActual['pregunta'],
-            'respostes' => []
-        ];
-
-        // Comprobar las respuestas
-        foreach ($preguntaActual['respostes'] as $index => $respuesta) {
-            $resultatPregunta['respostes'][] = [
-                'resposta' => $respuesta['resposta'],
-                'correcta' => $respuesta['correcta'],
-                'seleccionada' => ($index + 1 === $respostaSeleccionada) // +1 para coincidir con el ID
-            ];
-
-            // Contar la puntuación si la respuesta es correcta
-            if ($respuesta['correcta'] && $index + 1 === $respostaSeleccionada) {
-                $puntuacio++;
+    // Buscar la pregunta correspondiente
+    foreach ($datos['preguntes'] as $pregunta) {
+        if ($pregunta['id'] == $preguntaId) {
+            // Verificar si la respuesta seleccionada es correcta
+            foreach ($pregunta['respostes'] as $respuestaItem) {
+                if ($respuestaItem['id'] == $respuestaSeleccionada) {
+                    if ($respuestaItem['correcta']) {
+                        $correctas++;
+                    } else {
+                        $incorrectas++;
+                    }
+                    break; // Salir del bucle de respuestas una vez encontrada
+                }
             }
+            break; // Salir del bucle de preguntas una vez encontrada
         }
-
-        // Agregar el resultado de la pregunta a la lista de resultados
-        $resultats[] = $resultatPregunta;
     }
 }
 
-// Devolver la puntuación total y los resultados de las preguntas
+// Devolver el resultado como JSON
 echo json_encode([
-    'puntuacio' => $puntuacio,
-    'totalPreguntes' => $totalPreguntes,
-    'resultats' => $resultats
+    'puntuacio' => $correctas,
+    'totalPreguntes' => $correctas + $incorrectas
 ]);
-
-
+?>

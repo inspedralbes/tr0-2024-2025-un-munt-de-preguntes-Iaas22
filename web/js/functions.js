@@ -21,18 +21,20 @@ fetch('../back/getPreguntas.php')
     preg = data.preguntes; // Acceder a la clave "preguntes"
     
     // Inicialitzem l'estat de la partida amb les preguntes rebudes
-    estatDeLaPartida.preguntes = preg.map(pregunta => ({
-      id: pregunta.id,
-      feta: false,
-      respostaSeleccionada: null // Cambiamos de 'resposta' a 'respostaSeleccionada'
-    }));
-    
+    for (let i = 0; i < preg.length; i++) {
+      estatDeLaPartida.preguntes.push({
+        id: preg[i].id,
+        feta: false,
+        respostaSeleccionada: null // Cambiamos de 'resposta' a 'respostaSeleccionada'
+      });
+    }
+
     mostrarPregunta(); // Mostrar la primera pregunta
     mostrarEstatPartida(); // Mostrar l'estat inicial de la partida
   })
   .catch(error => console.error('Fetch error:', error));
 
-// Funció per mostrar la pregunta actual
+// Función para mostrar la pregunta actual
 function mostrarPregunta() {
   let htmlString = '';
 
@@ -42,7 +44,7 @@ function mostrarPregunta() {
     htmlString += `<div class="question-container"> `;
     htmlString += `<h3>${pregunta.pregunta}</h3>`;
     
-    htmlString += `<img src="${pregunta.imatge}" class="img-quizz" /> <br>`;
+    htmlString += `<img src="${pregunta.imatge}" class="img" /> <br>`;
     
     for (let indexR = 0; indexR < pregunta.respostes.length; indexR++) {
       htmlString += `<button onclick="verificarResposta(${preguntaActual}, ${indexR + 1})">${pregunta.respostes[indexR].resposta}</button>`;
@@ -51,76 +53,79 @@ function mostrarPregunta() {
     htmlString += `</div>`;
   } else {
     htmlString = `<h3>Has respost totes les preguntes!</h3>`;
+    document.getElementById('enviarResultats').style.display = 'block'; // Mostrar el botón de enviar resultados
   }
 
   let contenedor = document.getElementById('contenedor');
   contenedor.innerHTML = htmlString;
 }
 
-// Funció per verificar la resposta i actualitzar l'estat de la partida
+// Función para verificar la respuesta y actualizar el estado de la partida
 function verificarResposta(indexP, indexR) {
-  // Si la pregunta no havia estat contestada abans
+  // Si la pregunta no había sido contestada antes
   if (!estatDeLaPartida.preguntes[indexP].feta) {
-    // Actualitzar l'estat de la partida
+    // Actualizar el estado de la partida
     estatDeLaPartida.preguntes[indexP].feta = true;
 
-    // Guardar la resposta seleccionada
+    // Guardar la respuesta seleccionada
     estatDeLaPartida.preguntes[indexP].respostaSeleccionada = indexR;
 
-    // Augmentar el comptador de preguntes respostes
+    // Aumentar el contador de preguntas respondidas
     estatDeLaPartida.contadorPreguntes++;
   }
 
-  // Mostrar estat actualitzat de la partida
+  // Mostrar estado actualizado de la partida
   mostrarEstatPartida();
 
-  // Passar a la següent pregunta
+  // Pasar a la siguiente pregunta
   preguntaActual++;
-  mostrarPregunta(); // Mostrar la següent pregunta
-
-  // Comprovar si s'han respost totes les preguntes
-  if (estatDeLaPartida.contadorPreguntes === preg.length) {
-    document.getElementById('enviarResultats').style.display = 'block'; // Mostrar el botó d'enviar resultats
-  }
+  mostrarPregunta(); // Mostrar la siguiente pregunta
 }
 
-// Funció per mostrar l'estat de la partida
+// Función para mostrar el estado de la partida
 function mostrarEstatPartida() {
   let estatHtml = `<h3>Estat de la partida</h3>`;
 
-  // Mostrar quantes preguntes s'han respost "X/10"
+  // Mostrar cuántas preguntas se han respondido "X/10"
   estatHtml += `<p>Pregunta ${estatDeLaPartida.contadorPreguntes} / ${preg.length} </p>`;
 
   let estatContenedor = document.getElementById('estatPartida');
   estatContenedor.innerHTML = estatHtml;
 }
 
-// Funció per enviar els resultats (quan es mostri el botó)
+// Función para enviar los resultados (cuando se muestre el botón)
 function enviarResultats() {
-  const formData = new FormData();
-  formData.append('puntuacio', puntuacio);
-  formData.append('totalPreguntes', preg.length);
+  // Crear objeto JSON con las respuestas y la puntuación
+  let dadesResultats = {
+    puntuacio: puntuacio,
+    totalPreguntes: preg.length,
+    respostes: []
+  };
 
-  // Añadir las respuestas seleccionadas
-  estatDeLaPartida.preguntes.forEach((pregunta, index) => {
-    formData.append(`resposta_${index}`, pregunta.respostaSeleccionada);
-  });
+  for (let i = 0; i < estatDeLaPartida.preguntes.length; i++) {
+    dadesResultats.respostes.push({
+      idPregunta: estatDeLaPartida.preguntes[i].id,
+      respostaSeleccionada: estatDeLaPartida.preguntes[i].respostaSeleccionada
+    });
+  }
 
   fetch('../back/finalitza.php', {
     method: 'POST',
-    body: formData,
+    headers: {
+      'Content-Type': 'application/json' // Definir el contenido como JSON
+    },
+    body: JSON.stringify(dadesResultats) // Convertir el objeto a JSON
   })
   .then(response => {
     if (response.ok) {
-      return response.json();  // Cambiamos a .json() para recibir datos en JSON
+      return response.json();  // Recibir datos en formato JSON
     }
     throw new Error('Network response was not ok.');
   })
   .then(data => {
-    // Procesar la resposta i mostrar resultats
+    // Procesar la respuesta y mostrar resultados
     let resultHtml = `<h2>Resultats del Test</h2>`;
     resultHtml += `<p>Has encertat ${data.puntuacio} de ${data.totalPreguntes} preguntes.</p>`;
-
 
     // Mostrarem els resultats en una nova pàgina
     let contenedor = document.getElementById('contenedor');
