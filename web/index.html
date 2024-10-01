@@ -8,15 +8,25 @@
 </head>
 <body>
   <h1>Test d'autoescola</h1>
-  <!-- Contenidor per mostrar l'estat de la partida -->
-<div id="estatPartida"></div>
+  <h2>Respón 10 preguntes en 30 segons. Bona sort!</h2>
+ 
+ 
+
+  
+   <!-- Contenidor per mostrar l'estat de la partida -->
+   <div id="estatPartida"></div>
+
   <div id="contenedor"></div>
+  <!-- Contenedor para mostrar el temporizador -->
+  <div id="temporizadorContainer">
+    <h2>Temps restant: <span id="temporizador">30</span> segons</h2>
+  </div>
 
+  <br>
+  
 
-<br>
-<br>
-<!-- Botó per enviar els resultats, inicialment amagat -->
-<button id="enviarResultats" style="display: none;" onclick="enviarResultats()">Enviar Resultats</button>
+  <!-- Botó per enviar els resultats, inicialment amagat -->
+  <button id="enviarResultats" style="display: none;" onclick="enviarResultats()">Enviar Resultats</button>
 
   <script src="../web/js/functions.js"></script>
 </body>
