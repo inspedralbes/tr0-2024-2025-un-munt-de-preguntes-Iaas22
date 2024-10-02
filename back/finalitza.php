@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 // Cargar el archivo JSON
-$info = file_get_contents("./data.json");
+$info = file_get_contents("data.json");
 $datos = json_decode($info, true);
 
 // Recuperar las respuestas enviadas

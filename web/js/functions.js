@@ -13,7 +13,7 @@ let estatDeLaPartida = {
 };
 
 // Fetch para obtener las preguntas
-fetch('../back/getPreguntas.php')
+fetch('.././back/getPreguntas.php')
   .then(respostes => {
     if (!respostes.ok) {
       throw new Error('Network response was not ok');
@@ -142,7 +142,7 @@ function enviarResultats() {
     });
   }
 
-  fetch('../back/finalitza.php', {
+  fetch('./php/getPreguntas.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json' // Definir el contenido como JSON
