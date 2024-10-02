@@ -142,7 +142,7 @@ function enviarResultats() {
     });
   }
 
-  fetch('./php/getPreguntas.php', {
+  fetch('./../getPreguntas.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json' // Definir el contenido como JSON
