@@ -1,44 +1,37 @@
 <?php
 header('Content-Type: application/json');
 
-// Cargar el archivo JSON
+// Cargar el archivo JSON que contiene las preguntas y respuestas correctas
 $info = file_get_contents("data.json");
 $datos = json_decode($info, true);
 
-// Recuperar las respuestas enviadas
+// Recuperar las respuestas enviadas desde el front-end
 $input = json_decode(file_get_contents("php://input"), true);
 
-// Inicializar contadores
+// Inicializar contador de respuestas correctas
 $correctas = 0;
-$incorrectas = 0;
 
-// Comprobar las respuestas
+// Comprobar las respuestas enviadas con las correctas
 foreach ($input['respostes'] as $respuesta) {
     $preguntaId = $respuesta['idPregunta'];
     $respuestaSeleccionada = $respuesta['respostaSeleccionada'];
 
-    // Buscar la pregunta correspondiente
+    // Buscar la pregunta correspondiente en el archivo JSON
     foreach ($datos['preguntes'] as $pregunta) {
         if ($pregunta['id'] == $preguntaId) {
             // Verificar si la respuesta seleccionada es correcta
             foreach ($pregunta['respostes'] as $respuestaItem) {
-                if ($respuestaItem['id'] == $respuestaSeleccionada) {
-                    if ($respuestaItem['correcta']) {
-                        $correctas++;
-                    } else {
-                        $incorrectas++;
-                    }
-                    break; // Salir del bucle de respuestas una vez encontrada
+                if ($respuestaItem['id'] == $respuestaSeleccionada && $respuestaItem['correcta']) {
+                    $correctas++; // Incrementar el contador si la respuesta es correcta
                 }
             }
-            break; // Salir del bucle de preguntas una vez encontrada
         }
     }
 }
 
-// Devolver el resultado como JSON
+// Devolver el resultado como JSON, fijando el total de preguntas a 10
 echo json_encode([
     'puntuacio' => $correctas,
-    'totalPreguntes' => $correctas + $incorrectas
+    'totalPreguntes' => 10
 ]);
 ?>
