@@ -11,12 +11,13 @@
 <body>
   <h1>Test d'Autoescola</h1>
   <h2>Respón 10 preguntes en 30 segons. Bona sort!</h2>
-
-  <!-- Pantalla de inicio -->
-  <div id="pantallaInicio">
-    <input type="text" id="nombre" placeholder="Introduce tu nombre" />
-    <button id="iniciarJuego" class="button-navegacion">Iniciar Juego</button>
-  </div>
+  
+<!-- Pantalla de inicio -->
+<div id="pantallaInicio">
+  <input type="text" id="nombre" placeholder="Introduce tu nombre" />
+  <input type="number" id="cantidadPreguntas" placeholder="Cantidad de preguntas" min="1" max="10" />
+  <button id="iniciarJuego" class="button-navegacion">Iniciar Juego</button>
+</div>
 
   <!-- Contenedor para mostrar el estado de la partida -->
   <div id="estatPartida"></div>

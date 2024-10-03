@@ -14,16 +14,18 @@ let estatDeLaPartida = {
 // Evento para manejar el inicio del juego
 document.getElementById('iniciarJuego').addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
-  if (nombre) {
-    iniciarJuego(nombre);
+  const cantidadPreguntas = parseInt(document.getElementById('cantidadPreguntas').value.trim(), 10);
+
+  if (nombre && !isNaN(cantidadPreguntas) && cantidadPreguntas > 0) {
+    iniciarJuego(nombre, cantidadPreguntas);
   } else {
-    alert('Por favor, introduce tu nombre.');
+    alert('Por favor, introduce tu nombre y la cantidad de preguntas que deseas.');
   }
 });
 
 // Función para iniciar el juego
-function iniciarJuego(nombre) {
-  console.log(`Iniciando juego para: ${nombre}`);
+function iniciarJuego(nombre, cantidadPreguntas) {
+  console.log(`Iniciando juego para: ${nombre} con ${cantidadPreguntas} preguntas`);
 
   // Guardar nombre en localStorage
   localStorage.setItem("nombreUsuario", nombre);
@@ -31,7 +33,6 @@ function iniciarJuego(nombre) {
   // Ocultar la pantalla de inicio
   document.getElementById('pantallaInicio').style.display = 'none';
   document.getElementById('estatPartida').style.display = 'block';
-
 
   // Fetch para obtener las preguntas desde el servidor
   fetch('.././back/getPreguntas.php')
@@ -43,7 +44,7 @@ function iniciarJuego(nombre) {
     })
     .then(data => {
       console.log('Resposta rebuda del servidor:', data);
-      preg = data.preguntes;
+      preg = data.preguntes.slice(0, cantidadPreguntas); // Limitar las preguntas a la cantidad deseada
 
       // Inicializamos el estado de la partida con las preguntas recibidas
       for (let i = 0; i < preg.length; i++) {
