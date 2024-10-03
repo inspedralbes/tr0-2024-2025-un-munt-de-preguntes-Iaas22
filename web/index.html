@@ -12,6 +12,12 @@
   <h1>Test d'Autoescola</h1>
   <h2>Respón 10 preguntes en 30 segons. Bona sort!</h2>
 
+  <!-- Pantalla de inicio -->
+  <div id="pantallaInicio">
+    <input type="text" id="nombre" placeholder="Introduce tu nombre" />
+    <button id="iniciarJuego" class="button-navegacion">Iniciar Juego</button>
+  </div>
+
   <!-- Contenedor para mostrar el estado de la partida -->
   <div id="estatPartida"></div>
 
@@ -26,7 +32,7 @@
   <br>
 
   <!-- Botón para enviar los resultados, inicialmente oculto -->
-  <button id="enviarResultats" style="display: none;" onclick="enviarResultats()">Enviar Resultats</button>
+  <button id="enviarResultats" style="display: none;" onclick="enviarResultats()" class="button-navegacion">Enviar Resultats</button>
 
   <script src="../web/js/functions.js"></script>
 </body>

@@ -69,7 +69,7 @@ button {
   cursor: pointer;
   border-radius: var(--button-border-radius);
   transition: background-color 0.3s, transform 0.2s;
-  width: 100%;
+  width: 100%; /* Asegurarse de que el botón ocupe el ancho completo */
 }
 
 button:hover {

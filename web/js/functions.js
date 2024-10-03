@@ -11,37 +11,60 @@ let estatDeLaPartida = {
   preguntes: []
 };
 
-// Fetch para obtener las preguntas desde el servidor
-fetch('.././back/getPreguntas.php')
-  .then(respostes => {
-    if (!respostes.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return respostes.json();
-  })
-  .then(data => {
-    console.log('Resposta rebuda del servidor:', data);
-    preg = data.preguntes;
+// Evento para manejar el inicio del juego
+document.getElementById('iniciarJuego').addEventListener('click', () => {
+  const nombre = document.getElementById('nombre').value.trim();
+  if (nombre) {
+    iniciarJuego(nombre);
+  } else {
+    alert('Por favor, introduce tu nombre.');
+  }
+});
 
-    // Inicializamos el estado de la partida con las preguntas recibidas
-    for (let i = 0; i < preg.length; i++) {
-      estatDeLaPartida.preguntes.push({
-        id: preg[i].id,
-        feta: false,
-        respostaSeleccionada: null
-      });
-    }
+// Función para iniciar el juego
+function iniciarJuego(nombre) {
+  console.log(`Iniciando juego para: ${nombre}`);
 
-    mostrarPregunta(); // Mostrar la primera pregunta
-    mostrarEstatPartida(); // Mostrar el estado inicial de la partida
-    iniciarTemporizador(); // Iniciar el temporizador
-  })
-  .catch(error => console.error('Fetch error:', error));
+  // Guardar nombre en localStorage
+  localStorage.setItem("nombreUsuario", nombre);
+
+  // Ocultar la pantalla de inicio
+  document.getElementById('pantallaInicio').style.display = 'none';
+  document.getElementById('estatPartida').style.display = 'block';
+
+
+  // Fetch para obtener las preguntas desde el servidor
+  fetch('.././back/getPreguntas.php')
+    .then(respostes => {
+      if (!respostes.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return respostes.json();
+    })
+    .then(data => {
+      console.log('Resposta rebuda del servidor:', data);
+      preg = data.preguntes;
+
+      // Inicializamos el estado de la partida con las preguntas recibidas
+      for (let i = 0; i < preg.length; i++) {
+        estatDeLaPartida.preguntes.push({
+          id: preg[i].id,
+          feta: false,
+          respostaSeleccionada: null
+        });
+      }
+
+      mostrarPregunta(); // Mostrar la primera pregunta
+      mostrarEstatPartida(); // Mostrar el estado inicial de la partida
+      iniciarTemporizador(); // Iniciar el temporizador
+    })
+    .catch(error => console.error('Fetch error:', error));
+}
 
 // Función para iniciar el temporizador
 function iniciarTemporizador() {
   tiempoRestante = tiempoLimite;
-  document.getElementById('estatPartida').innerHTML += `<h3>Temps restant: <span id="temporizador">${tiempoRestante}</span> segons</h3>`;
+  document.getElementById('temporizador').textContent = tiempoRestante;
 
   temporizador = setInterval(() => {
     tiempoRestante--;
@@ -106,7 +129,7 @@ function siguientePregunta() {
   }
 }
 
-/// Función para verificar la respuesta y actualizar el estado de la partida
+// Función para verificar la respuesta y actualizar el estado de la partida
 function verificarResposta(indexP, indexR) {
   let pregunta = estatDeLaPartida.preguntes[indexP];
 
@@ -115,8 +138,6 @@ function verificarResposta(indexP, indexR) {
     estatDeLaPartida.contadorPreguntes++;
     pregunta.feta = true;
   }
-
-  console.log(indexP, indexR);
 
   // Actualizamos la respuesta seleccionada, permitiendo cambiarla
   pregunta.respostaSeleccionada = indexR;
