@@ -1,9 +1,9 @@
 <?php
-// CONEXIÓN A LA BASE DE DATOS
+//CONEXION A LA BBDD
 $host = 'localhost';
-$dbname = 'testConducir';
-$username = 'root';  
-$password = '';      
+$dbname = 'a23ishamisul_db';
+$username = 'a23ishamisul_ishaa';  
+$password = 'Ias12222004';      
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -12,51 +12,44 @@ try {
     die("Error en la conexión: " . $e->getMessage());
 }
 
-// Leer el archivo JSON
-$jsonFile = 'data.json'; // Asegúrate de que la ruta al archivo sea correcta
+$jsonFile = '../data.json';
+
 insertarPreguntasDesdeJson($jsonFile, $pdo);
 
 function insertarPreguntasDesdeJson($jsonFile, $pdo) {
-    // Cargar y decodificar el archivo JSON
+    //Comprobacion BBDD
+    $sqlComprobar = "SELECT COUNT(*) FROM preguntes";
+    $stmt = $pdo->prepare($sqlComprobar);
+    $stmt->execute();
+    $numPreguntas = $stmt->fetchColumn();
+
+    if ($numPreguntas > 0) {
+        echo "La base de datos ya contiene preguntas. No se insertaron nuevos datos.";
+        return; 
+    }
+
     $jsonData = file_get_contents($jsonFile);
     $data = json_decode($jsonData, true);
     
     if (isset($data['preguntes'])) {
         foreach ($data['preguntes'] as $pregunta) {
-            try {
-                // Inserción de la pregunta
-                $sqlPregunta = "INSERT INTO preguntas (pregunta, img) VALUES (:pregunta, :img)";
-                $stmtPregunta = $pdo->prepare($sqlPregunta);
-                $preguntaText = $pregunta['pregunta'];
-                $img = $pregunta['imatge'];
-                $stmtPregunta->bindParam(':pregunta', $preguntaText);
-                $stmtPregunta->bindParam(':img', $img);
-                $stmtPregunta->execute();
+            $sqlPregunta = "INSERT INTO preguntes (pregunta, imatge) VALUES (:pregunta, :imatge)";
+            $stmt = $pdo->prepare($sqlPregunta);
+            $stmt->execute([
+                ':pregunta' => $pregunta['pregunta'],
+                ':imatge' => $pregunta['imatge']
+            ]);
 
-                $idPregunta = $pdo->lastInsertId();
+            $idPregunta = $pdo->lastInsertId();
 
-                // Comprobamos si existen respuestas
-                if (isset($pregunta['respostes'])) {
-                    foreach ($pregunta['respostes'] as $respuesta) {
-                        try {
-                            // Inserción de la respuesta
-                            $sqlRespuesta = "INSERT INTO respuestas (id_pregunta, resposta, correcta) VALUES (:id_pregunta, :resposta, :correcta)";
-                            $stmtRespuesta = $pdo->prepare($sqlRespuesta);
-                            $idPreguntaBind = $idPregunta;
-                            $respuestaText = $respuesta['resposta'];
-                            $correcta = isset($respuesta['correcta']) && $respuesta['correcta'] ? 1 : 0;
-
-                            $stmtRespuesta->bindParam(':id_pregunta', $idPreguntaBind);
-                            $stmtRespuesta->bindParam(':resposta', $respuestaText);
-                            $stmtRespuesta->bindParam(':correcta', $correcta);
-                            $stmtRespuesta->execute();
-                        } catch (PDOException $e) {
-                            echo "Error al insertar respuesta: " . $e->getMessage() . "\n";
-                        }
-                    }
-                }
-            } catch (PDOException $e) {
-                echo "Error al insertar pregunta: " . $e->getMessage() . "\n";
+            foreach ($pregunta['respostes'] as $respuesta) {
+                $sqlRespuesta = "INSERT INTO respostes (pregunta_id, resposta, correcta) VALUES (:pregunta_id, :resposta, :correcta)";
+                $stmt = $pdo->prepare($sqlRespuesta);
+                $stmt->execute([
+                    ':pregunta_id' => $idPregunta,
+                    ':resposta' => $respuesta['resposta'],
+                    ':correcta' => $respuesta['correcta'] ? 1 : 0 //Operacio ternaria per convertir boolean a tinyInt(mysql)
+                ]);
             }
         }
         echo "Preguntas y respuestas insertadas correctamente.";

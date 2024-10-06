@@ -1,26 +1,12 @@
 <?php
+$host = 'localhost';
+$dbname = 'a23ishamisul_db';
+$username = 'a23ishamisul_ishaa';  
+$password = 'Ias12222004'; 
 
-function conexion() {
-    $dbhost = "localhost";
-    $dbname = "testConducir";
-    $dbpass = "";
-    $dbuser = "root";
+$conn = mysqli_connect($host, $username, $password, $dbname);
 
-    try {
-        // Conectar a la base de datos usando PDO
-        $conexion = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
-
-        // Configurar el manejo de errores
-        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // Mensaje opcional para confirmar que la conexión fue exitosa
-        echo "Conexión exitosa";
-        
-        // Retornar la conexión para usarla en otras operaciones
-        return $conexion;
-    } catch (PDOException $e) {
-        die("Error en la conexión: " . $e->getMessage());
-    }
+if (!$conn) {
+    die("Error en la conexión a la base de datos: " . mysqli_connect_error());
 }
-
 ?>
