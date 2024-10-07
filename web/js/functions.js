@@ -36,7 +36,7 @@ function iniciarJuego(nombre, cantidadPreguntes) {
     document.getElementById('estatPartida').style.display = 'block';
     document.getElementById('temporizadorContainer').style.display = 'block';
 
-    //obtener las preguntas desde el servidor
+    //obtener preguntas desde el servidor
     fetch('/tr0-2024-2025-un-munt-de-preguntes-Iaas22/back/getPreguntas.php', {
         method: 'POST', 
         headers: {
@@ -80,7 +80,7 @@ function iniciarTemporizador() {
     }, 1000);
 }
 
-//mostrar la pregunta actual
+//pregunta actual
 function mostrarPregunta() {
     let htmlString = '';
 
@@ -131,24 +131,24 @@ function siguientePregunta() {
     }
 }
 
-//verificar la respuesta y actualizar el estado de la partida
+//verificar la respuesta y actualizar el estado 
 function verificarResposta(indexP, indexR) {
     if (preguntaActual < preg.length) {
         let pregunta = preg[indexP];
 
         //respuesta seleccionada es correcta
         if (pregunta.respostes[indexR].correcta) {
-            puntuacio++; // Incrementar puntuación por respuesta correcta
+            puntuacio++; 
         }
 
-        // incrementar el contador 
+        
         estatDeLaPartida.contadorPreguntes++;
 
         // siguiente pregunta
         siguientePregunta();
         mostrarEstatPartida();
 
-        // Si se han respondido todas las preguntas, mostrar botón para enviar los resultados
+   
         if (estatDeLaPartida.contadorPreguntes === preg.length) {
             clearInterval(temporizador);
             document.getElementById('enviarResultatsContainer').style.display = 'block'; // Mostrar contenedor del botón
@@ -158,7 +158,7 @@ function verificarResposta(indexP, indexR) {
 
 // mostrar el estado de la partida
 function mostrarEstatPartida() {
-    // Mostrar "Pregunta x de y"
+ 
     let estatHtml = `<h3>Pregunta ${preguntaActual + 1} de ${preg.length}</h3>`;
     document.getElementById('estatPartida').innerHTML = estatHtml;
 }
@@ -192,10 +192,10 @@ function enviarResultats() {
         resultHtml += `<p>Has acertado ${puntuacio} de ${preg.length} preguntas.</p>`;
         resultHtml += `<button id="reiniciarJuego" class="button-navegacion" onclick="reiniciarJuego()">Repetir test</button>`;
 
-        // Limpiar todo el contenido y mostrar solo el resultado
+   
         document.getElementById('contenedor').innerHTML = resultHtml;
 
-        // Ocultar otros elementos
+ 
         document.getElementById('estatPartida').style.display = 'none';
         document.getElementById('temporizadorContainer').style.display = 'none';
         document.getElementById('enviarResultatsContainer').style.display = 'none';
@@ -203,11 +203,11 @@ function enviarResultats() {
     .catch(error => console.error('Error al enviar los resultados:', error));
 }
 
-// Función para reiniciar el juego
+// reiniciar el juego
 function reiniciarJuego() {
     puntuacio = 0;
     preguntaActual = 0;
     estatDeLaPartida.contadorPreguntes = 0;
-    document.getElementById('pantallaInicio').style.display = 'block'; // Volver a mostrar la pantalla de inicio
-    document.getElementById('contenedor').innerHTML = ''; // Limpiar el contenedor
+    document.getElementById('pantallaInicio').style.display = 'block'; 
+    document.getElementById('contenedor').innerHTML = ''; 
 }
