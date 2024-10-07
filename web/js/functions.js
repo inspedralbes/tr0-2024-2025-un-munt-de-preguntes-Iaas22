@@ -4,7 +4,7 @@ let preguntaActual = 0; // Índice de la pregunta actual
 let tiempoLimite = 30; // Tiempo límite por pregunta
 let tiempoRestante; // Tiempo restante para la pregunta actual
 let temporizador; // Temporizador para contar el tiempo
-let cantidadPreguntesSeleccionades = 0;
+
 
 // Estado de la partida
 let estatDeLaPartida = {
@@ -18,7 +18,6 @@ document.getElementById('iniciarJuego').addEventListener('click', () => {
 
     // Verifica que el nombre no esté vacío y que la cantidad de preguntas sea válida
     if (nombre && !isNaN(cantidadPreguntasSeleccionadas) && cantidadPreguntasSeleccionadas > 0) {
-        cantidadPreguntesSeleccionades = cantidadPreguntasSeleccionadas; // Guardamos la cantidad seleccionada
         iniciarJuego(nombre, cantidadPreguntasSeleccionadas);
     } else {
         alert('Por favor, introduce tu nombre y la cantidad de preguntas que deseas.');
@@ -155,8 +154,8 @@ function verificarResposta(indexP, indexR) {
 
 // Función para mostrar el estado de la partida
 function mostrarEstatPartida() {
-    // Mostrar "Pregunta x de y" usando la cantidad seleccionada por el usuario
-    let estatHtml = `<h3>Pregunta ${preguntaActual + 1} de ${cantidadPreguntesSeleccionades}</h3>`;
+    // Mostrar "Pregunta x de y"
+    let estatHtml = `<h3>Pregunta ${preguntaActual + 1} de ${preg.length}</h3>`;
     document.getElementById('estatPartida').innerHTML = estatHtml;
 }
 
