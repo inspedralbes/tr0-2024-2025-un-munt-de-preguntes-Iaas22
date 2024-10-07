@@ -275,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.getElementById('cancelarEdicion').classList.add('hidden');
         }
 
-        //cancelar la edición
+        
         document.getElementById('cancelarEdicion').addEventListener('click', resetForm);
     </script>
 </body>
