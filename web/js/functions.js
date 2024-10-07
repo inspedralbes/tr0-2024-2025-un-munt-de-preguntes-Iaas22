@@ -36,7 +36,7 @@ function iniciarJuego(nombre, cantidadPreguntes) {
     document.getElementById('temporizadorContainer').style.display = 'block';
 
     // Fetch para obtener las preguntas desde el servidor
-    fetch('/tr0/back/getPreguntas.php', {
+    fetch('/tr0-2024-2025-un-munt-de-preguntes-Iaas22/back/getPreguntas.php', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
