@@ -7,7 +7,7 @@ let temporizador; // Temporizador para contar el tiempo
 
 // Estado de la partida
 let estatDeLaPartida = {
-    contadorPreguntes: 0, // Contador de preguntas respondidas
+    contadorPreguntes: 0, // Contador de preguntas respondidas 
 };
 
 // Evento para manejar el inicio del juego
