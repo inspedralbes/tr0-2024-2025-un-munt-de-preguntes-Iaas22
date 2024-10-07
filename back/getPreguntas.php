@@ -18,7 +18,7 @@ try {
     die("Error en la conexión: " . $e->getMessage());
 }
 
-// Función para obtener preguntas y respuestas
+//btener preguntas y respuestas
 function obtenerPreguntas($pdo) {
     $sql = "SELECT id, pregunta, imatge FROM preguntes";
     $stmt = $pdo->prepare($sql);
@@ -32,7 +32,7 @@ function obtenerPreguntas($pdo) {
     return $preguntas;
 }
 
-// Función para obtener respuestas de una pregunta
+//obtener respuestas de una pregunta
 function obtenerRespuestas($idPregunta, $pdo) {
     $sql = "SELECT id, resposta, correcta FROM respostes WHERE pregunta_id = :idPregunta";
     $stmt = $pdo->prepare($sql);
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Llama a la función para obtener preguntas
     $preguntas = obtenerPreguntas($pdo);
     
-    // Si no se encontraron preguntas, retornamos un error
+    // Si no se encontraron preguntas:
     if (empty($preguntas)) {
         echo json_encode(['error' => 'No se encontraron preguntas.']);
         exit;
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     echo json_encode($preguntas);
 } else {
-    // Si la solicitud no es POST, retorna un error
+    // error
     header('Content-Type: application/json');
     echo json_encode(['error' => 'Método no permitido.']);
 }

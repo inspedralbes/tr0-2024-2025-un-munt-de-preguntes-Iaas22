@@ -53,7 +53,7 @@ function insertarPreguntasDesdeJson($jsonFile, $pdo) {
                 $stmt->execute([
                     ':pregunta_id' => $idPregunta,
                     ':resposta' => $respuesta['resposta'],
-                    ':correcta' => $respuesta['correcta'] ? 1 : 0 //Operacio ternaria per convertir boolean a tinyInt(mysql)
+                    ':correcta' => $respuesta['correcta'] ? 1 : 0 
                 ]);
             }
         }

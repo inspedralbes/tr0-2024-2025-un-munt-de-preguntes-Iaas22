@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        // Función para cargar preguntas
+        // cargar preguntas
         document.getElementById('cargarPreguntas').addEventListener('click', cargarPreguntas);
 
         function cargarPreguntas() {
@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .catch(error => console.error('Error en cargar preguntas:', error));
         }
 
-        // Función para mostrar preguntas
+        //  mostrar preguntas
         function mostrarPreguntas(preguntas) {
             const listaPreguntas = document.getElementById('listaPreguntas');
             listaPreguntas.innerHTML = '';
@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
         }
 
-        // Función para editar una pregunta
+        // editar una pregunta
         function editarPregunta(id, pregunta, imagen) {
             document.getElementById('preguntaId').value = id;
             document.getElementById('pregunta').value = pregunta;
@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.getElementById('cancelarEdicion').classList.remove('hidden');
         }
 
-        // Evento para guardar pregunta (nuevo o editado)
+        // guardar pregunta
         document.getElementById('guardarPregunta').addEventListener('click', () => {
             const id = document.getElementById('preguntaId').value;
             const pregunta = document.getElementById('pregunta').value;
@@ -242,13 +242,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 })
             })
             .then(() => {
-                cargarPreguntas(); // Recarga la lista después de agregar/editar
+                cargarPreguntas(); /
                 resetForm();
             })
             .catch(error => console.error('Error al guardar pregunta:', error));
         });
 
-        // Función para eliminar una pregunta
+        //eliminar una pregunta
         function eliminarPregunta(id) {
             if (confirm('¿Estás seguro de que quieres eliminar esta pregunta?')) {
                 fetch('crud.php', {
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Función para reiniciar el formulario
+        // reiniciar el formulario
         function resetForm() {
             document.getElementById('preguntaId').value = '';
             document.getElementById('pregunta').value = '';

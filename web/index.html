@@ -10,27 +10,23 @@
     <h1>Test d'Autoescola</h1>
     <h2>Respón preguntas en 30 segundos. ¡Bona sort!</h2>
     
-    <!-- Pantalla de inicio -->
+ 
     <div id="pantallaInicio">
         <input type="text" id="nombre" placeholder="Introdueix el teu nom" />
         <input type="number" id="cantidadPreguntas" placeholder="Quantitat de preguntes" min="1" max="10" />
         <button id="iniciarJuego" class="button-navegacion small-button">Iniciar test</button>
     </div>
 
-    <!-- Contenedor para mostrar el estado de la partida -->
     <div id="estatPartida"></div>
 
-    <!-- Contenedor para las preguntas -->
     <div id="contenedor"></div>
 
-    <!-- Contenedor para mostrar el temporizador -->
     <div id="temporizadorContainer">
         <h2>Temps restant: <span id="temporizador">30</span> segons</h2>
     </div>
 
     <br>
 
-    <!-- Botón para enviar los resultados, inicialmente oculto -->
     <div id="enviarResultatsContainer" style="display: none;">
         <button id="enviarResultats" onclick="enviarResultats()" class="button-navegacion small-button">Enviar Resultats</button>
     </div>

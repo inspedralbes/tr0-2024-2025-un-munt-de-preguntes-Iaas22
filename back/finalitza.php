@@ -1,13 +1,13 @@
 <?php
-require 'config.php'; // Incluir la conexión a la base de datos
+require 'config.php'; /
 
-// Obtener los datos enviados por el frontend
+
 $data = json_decode(file_get_contents('php://input'), true);
 $puntuacio = $data['puntuacio'];
 $totalPreguntes = $data['totalPreguntes'];
-$respostes = $data['respostes'];  // Arreglo con las respuestas
+$respostes = $data['respostes'];
 
-// Responder con un resumen de los resultados
+
 $response = [
     'puntuacio' => $puntuacio,
     'totalPreguntes' => $totalPreguntes
