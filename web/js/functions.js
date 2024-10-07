@@ -36,7 +36,7 @@ function iniciarJuego(nombre, cantidadPreguntes) {
     document.getElementById('temporizadorContainer').style.display = 'block';
 
     // Fetch para obtener las preguntas desde el servidor
-    fetch('../back/getPreguntas.php', {
+    fetch('../../back/getPreguntas.php', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function iniciarJuego(nombre, cantidadPreguntes) {
         }
         return response.json(); // Parsear la respuesta como JSON
     })
-    .then(response => response.json())
+   
     .then(fetchedData => {
         preg = fetchedData;
         iniciarTemporizador();
