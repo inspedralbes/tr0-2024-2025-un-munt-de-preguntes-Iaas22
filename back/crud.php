@@ -3,7 +3,7 @@
 /*
 $host = 'localhost';
 $dbname = 'a23ishamisul_db';
-$username = 'a23ishamisul_ishaa';  
+$username = 'a23ishamisul_ishaa';   
 $password = 'Ias12222004';    //contraseña
 */
 $host = 'localhost';
