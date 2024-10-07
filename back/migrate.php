@@ -1,10 +1,15 @@
 <?php
 //CONEXION A LA BBDD
+/*
 $host = 'localhost';
 $dbname = 'a23ishamisul_db';
 $username = 'a23ishamisul_ishaa';  
 $password = 'Ias12222004';      
-
+*/
+$host = 'localhost';
+$dbname = 'db';
+$username = 'root';  
+$password = ''; 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

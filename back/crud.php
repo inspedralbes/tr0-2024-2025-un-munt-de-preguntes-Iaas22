@@ -1,10 +1,15 @@
 <?php
 // Configuración de la base de datos
+/*
 $host = 'localhost';
 $dbname = 'a23ishamisul_db';
 $username = 'a23ishamisul_ishaa';  
 $password = 'Ias12222004';    //contraseña
-
+*/
+$host = 'localhost';
+$dbname = 'db';
+$username = 'root';  
+$password = ''; 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -270,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.getElementById('cancelarEdicion').classList.add('hidden');
         }
 
-        // Evento para cancelar la edición
+        //cancelar la edición
         document.getElementById('cancelarEdicion').addEventListener('click', resetForm);
     </script>
 </body>

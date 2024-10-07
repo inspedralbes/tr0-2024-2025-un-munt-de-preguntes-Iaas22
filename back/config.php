@@ -1,9 +1,14 @@
 <?php
+/*
 $host = 'localhost';
 $dbname = 'a23ishamisul_db';
 $username = 'a23ishamisul_ishaa';  
 $password = 'Ias12222004'; 
-
+*/
+$host = 'localhost';
+$dbname = 'db';
+$username = 'root';  
+$password = ''; 
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
 if (!$conn) {
