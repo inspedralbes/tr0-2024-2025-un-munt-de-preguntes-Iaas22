@@ -1,3 +1,4 @@
+# Ishaa Amin Sultana
 # transversals
 Esquema mínim de carpetes pels projectes transversals
 
@@ -17,3 +18,4 @@ El projecte s'ha de poder desplegar en mode desenvolupament simplement fent dock
  * Adreça del prototip gràfic del projecte (Penpot, figma, moqups...)
  * URL de producció (quan la tingueu)
  * Estat: (explicació d'en quin punt està)
+ * /* https://coolors.co/palette/064789-427aa1-ebf2fa*/ link de paleta de colors
