@@ -33,7 +33,7 @@ function agregarPregunta($pregunta, $imagen, $pdo) {
     $stmt->bindParam(':imagen', $imagen);
     return $stmt->execute();
 }
-
+ 
 // Función para editar una pregunta existente
 function editarPregunta($id, $pregunta, $imagen, $pdo) {
     $sql = "UPDATE preguntes SET pregunta = :pregunta, imatge = :imagen WHERE id = :id";
