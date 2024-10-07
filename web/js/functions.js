@@ -48,8 +48,9 @@ function iniciarJuego(nombre, cantidadPreguntes) {
         }
         return response.json(); // Parsear la respuesta como JSON
     })
+    .then(response => response.json())
     .then(fetchedData => {
-        preg = fetchedData.slice(0, cantidadPreguntes); // Limitar la cantidad de preguntas
+        preg = fetchedData;
         iniciarTemporizador();
         mostrarPregunta(); // Muestra la primera pregunta
         mostrarEstatPartida(); // Muestra el estado de la partida inicialmente
