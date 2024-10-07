@@ -19,7 +19,7 @@ document.getElementById('iniciarJuego').addEventListener('click', () => {
     // Verifica que el nombre no esté vacío y que la cantidad de preguntas sea válida
     if (nombre && !isNaN(cantidadPreguntasSeleccionadas) && cantidadPreguntasSeleccionadas > 0) {
         cantidadPreguntesSeleccionades = cantidadPreguntasSeleccionadas; // Guardamos la cantidad seleccionada
-        iniciarJuego(nombre, cantidadPreguntesSeleccionadas);
+        iniciarJuego(nombre, cantidadPreguntasSeleccionadas);
     } else {
         alert('Por favor, introduce tu nombre y la cantidad de preguntas que deseas.');
     }
