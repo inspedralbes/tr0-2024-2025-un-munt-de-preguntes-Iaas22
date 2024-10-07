@@ -4,17 +4,17 @@ let preguntaActual = 0; // Índice de la pregunta actual
 let tiempoLimite = 30; // Tiempo límite por pregunta
 let tiempoRestante; // Tiempo restante para la pregunta actual
 let temporizador; // Temporizador para contar el tiempo
-
+let cantidadPreguntasSeleccionadas; // Variable para almacenar la cantidad de preguntas seleccionadas
 
 // Estado de la partida
 let estatDeLaPartida = {
     contadorPreguntes: 0, // Contador de preguntas respondidas 
 };
 
-// Evento para manejar el inicio del juego
+// inicio del juego
 document.getElementById('iniciarJuego').addEventListener('click', () => {
     const nombre = document.getElementById('nombre').value.trim();
-    const cantidadPreguntasSeleccionadas = parseInt(document.getElementById('cantidadPreguntas').value.trim(), 10);
+    cantidadPreguntasSeleccionadas = parseInt(document.getElementById('cantidadPreguntas').value.trim(), 10);
 
     // Verifica que el nombre no esté vacío y que la cantidad de preguntas sea válida
     if (nombre && !isNaN(cantidadPreguntasSeleccionadas) && cantidadPreguntasSeleccionadas > 0) {
@@ -24,7 +24,7 @@ document.getElementById('iniciarJuego').addEventListener('click', () => {
     }
 });
 
-// Función para iniciar el juego
+// iniciar el juego
 function iniciarJuego(nombre, cantidadPreguntes) {
     console.log(`Iniciando juego para: ${nombre} con ${cantidadPreguntes} preguntas`);
 
@@ -36,7 +36,7 @@ function iniciarJuego(nombre, cantidadPreguntes) {
     document.getElementById('estatPartida').style.display = 'block';
     document.getElementById('temporizadorContainer').style.display = 'block';
 
-    // Fetch para obtener las preguntas desde el servidor
+    //obtener las preguntas desde el servidor
     fetch('/tr0-2024-2025-un-munt-de-preguntes-Iaas22/back/getPreguntas.php', {
         method: 'POST', 
         headers: {
@@ -47,19 +47,23 @@ function iniciarJuego(nombre, cantidadPreguntes) {
         if (!response.ok) {
             throw new Error('Error en la respuesta del servidor: ' + response.statusText);
         }
-        return response.json(); // Parsear la respuesta como JSON
+        return response.json(); 
     })
-   
     .then(fetchedData => {
-        preg = fetchedData;
+        // Seleccionar solo la cantidad de preguntas especificada
+        preg = fetchedData.slice(0, cantidadPreguntasSeleccionadas);
+        if (preg.length === 0) {
+            alert('No hay suficientes preguntas disponibles.');
+            return;
+        }
         iniciarTemporizador();
-        mostrarPregunta(); // Muestra la primera pregunta
-        mostrarEstatPartida(); // Muestra el estado de la partida inicialmente
+        mostrarPregunta(); 
+        mostrarEstatPartida();
     })
     .catch(error => console.error('Error en fetch:', error));
 }
 
-// Función para iniciar el temporizador
+// temporizador
 function iniciarTemporizador() {
     tiempoRestante = tiempoLimite;
     document.getElementById('temporizador').textContent = tiempoRestante;
@@ -71,12 +75,12 @@ function iniciarTemporizador() {
         if (tiempoRestante <= 0) {
             clearInterval(temporizador);
             alert("¡Tiempo agotado!");
-            enviarResultats(); // Envía resultados si el tiempo se agota
+            enviarResultats(); 
         }
     }, 1000);
 }
 
-// Función para mostrar la pregunta actual
+//mostrar la pregunta actual
 function mostrarPregunta() {
     let htmlString = '';
 
@@ -89,7 +93,7 @@ function mostrarPregunta() {
             htmlString += `<img src="${pregunta.imatge}" class="img-quizz" /> <br>`;
         }
 
-        // Muestra las respuestas posibles
+        // respuestas posibles
         pregunta.respostes.forEach((respuesta, indexR) => {
             htmlString += `<button onclick="verificarResposta(${preguntaActual}, ${indexR})">${respuesta.resposta}</button>`;
         });
@@ -97,7 +101,7 @@ function mostrarPregunta() {
         htmlString += `</div>`;
     }
 
-    // Agregamos los botones de navegación
+    //botones de navegación
     htmlString += `
     <br>
     <div class="navigation-buttons">
@@ -109,7 +113,7 @@ function mostrarPregunta() {
     document.getElementById('contenedor').innerHTML = htmlString;
 }
 
-// Función para ir a la pregunta anterior
+//pregunta anterior
 function anteriorPregunta() {
     if (preguntaActual > 0) {
         preguntaActual--;
@@ -118,7 +122,7 @@ function anteriorPregunta() {
     }
 }
 
-// Función para ir a la siguiente pregunta
+// siguiente pregunta
 function siguientePregunta() {
     if (preguntaActual < preg.length - 1) {
         preguntaActual++;
@@ -127,24 +131,24 @@ function siguientePregunta() {
     }
 }
 
-// Función para verificar la respuesta y actualizar el estado de la partida
+//verificar la respuesta y actualizar el estado de la partida
 function verificarResposta(indexP, indexR) {
     if (preguntaActual < preg.length) {
         let pregunta = preg[indexP];
 
-        // Verificar si la respuesta seleccionada es correcta
+        //respuesta seleccionada es correcta
         if (pregunta.respostes[indexR].correcta) {
             puntuacio++; // Incrementar puntuación por respuesta correcta
         }
 
-        // Incrementar el contador de preguntas respondidas
+        // incrementar el contador 
         estatDeLaPartida.contadorPreguntes++;
 
-        // Mostrar la siguiente pregunta automáticamente después de responder
+        // siguiente pregunta
         siguientePregunta();
         mostrarEstatPartida();
 
-        // Si se han respondido todas las preguntas, mostramos el botón para enviar los resultados
+        // Si se han respondido todas las preguntas, mostrar botón para enviar los resultados
         if (estatDeLaPartida.contadorPreguntes === preg.length) {
             clearInterval(temporizador);
             document.getElementById('enviarResultatsContainer').style.display = 'block'; // Mostrar contenedor del botón
@@ -152,14 +156,14 @@ function verificarResposta(indexP, indexR) {
     }
 }
 
-// Función para mostrar el estado de la partida
+// mostrar el estado de la partida
 function mostrarEstatPartida() {
     // Mostrar "Pregunta x de y"
     let estatHtml = `<h3>Pregunta ${preguntaActual + 1} de ${preg.length}</h3>`;
     document.getElementById('estatPartida').innerHTML = estatHtml;
 }
 
-// Función para enviar los resultados al servidor
+// enviar los resultados al servidor
 function enviarResultats() {
     let dadesResultats = {
         puntuacio: puntuacio,
@@ -184,9 +188,9 @@ function enviarResultats() {
         throw new Error('Error en la respuesta de la red.');
     })
     .then(data => {
-        let resultHtml = `<h2>Resultats del test: </h2>`;
-        resultHtml += `<p>Has encertat ${puntuacio} de ${preg.length} preguntes.</p>`;
-        resultHtml += `<button id="reiniciarJuego" class="button-navegacion" onclick="reiniciarJuego()">Repetir test </button>`;
+        let resultHtml = `<h2>Resultados del test: </h2>`;
+        resultHtml += `<p>Has acertado ${puntuacio} de ${preg.length} preguntas.</p>`;
+        resultHtml += `<button id="reiniciarJuego" class="button-navegacion" onclick="reiniciarJuego()">Repetir test</button>`;
 
         // Limpiar todo el contenido y mostrar solo el resultado
         document.getElementById('contenedor').innerHTML = resultHtml;
